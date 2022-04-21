@@ -1,7 +1,15 @@
+import Head from "next/head";
+import styles from "../styles/styles.module.scss";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello Next.js</h1>
-    </div>
+    <>
+      <Head>
+        <title>Board - Organizando suas tarefas</title>
+      </Head>
+      <div>
+        <h1>Hello Next.js</h1>
+      </div>
+    </>
   )
 }
