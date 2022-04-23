@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from './styles.module.scss';
+import {SignInButton} from "../SignInButton"
 
 export function Header() {
     return (
@@ -19,9 +20,7 @@ export function Header() {
 
                 </nav>
 
-                <button>
-                    Entrar com Github
-                </button>
+                <SignInButton />
             </div>
         </header>
     );
