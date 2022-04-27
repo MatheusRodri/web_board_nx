@@ -1,13 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from './styles.module.scss';
 import {SignInButton} from "../SignInButton"
+import Logo from "../../../public/images/logo.svg";
 
 export function Header() {
     return (
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
                 <Link href="/">
-                    <img src='/images/logo.svg' alt='logo my board' />
+                    <a>
+                    <Image src={Logo} alt='logo my board' />
+                    </a>
                 </Link>
                 <nav>
                     <Link href="/">

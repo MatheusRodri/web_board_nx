@@ -1,8 +1,10 @@
 import { GetStaticProps } from "next";
 import { useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import styles from "../styles/styles.module.scss";
 import firebase from "../services/firebaseConnection";
+import boarUser from "../../public//images/board-user.svg";
 
 type Data = {
   id: string;
@@ -26,7 +28,7 @@ export default function Home({data}) {
         <title>Board - Organizando suas tarefas</title>
       </Head>
       <main className={styles.contentContainer}>
-        <img src="/images/board-user.svg" alt="board" />
+        <Image src={boarUser} alt="board" />
 
         <section className={styles.callToAction}>
           <h1>

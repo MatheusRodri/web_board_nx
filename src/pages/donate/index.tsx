@@ -2,8 +2,10 @@ import { GetServerSideProps } from 'next';
 import { useState } from 'react'; 
 import styles from './styles.module.scss';
 import Head from 'next/head'; 
+import Image from "next/image";
 import { getSession } from 'next-auth/client';
 import firebase from '../../services/firebaseConnection';
+import rocket from "../../../public/images/rocket.svg"
 
 import { PayPalButtons } from '@paypal/react-paypal-js';
 
@@ -40,7 +42,7 @@ export default function Donate({ user }: DonatePorps ){
       <title>Help the platform stay online!</title>
     </Head>
     <main className={styles.container}>
-      <img src="/images/rocket.svg" alt="Seja Apoiador" />
+      <Image src={rocket} alt="Seja Apoiador" />
       
       {vip && (
         <div className={styles.vip}>

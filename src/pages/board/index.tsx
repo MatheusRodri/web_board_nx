@@ -9,7 +9,8 @@ import { FiPlus, FiCalendar, FiEdit2, FiTrash, FiClock, FiX } from 'react-icons/
 import { DonateButton } from "../../components/DonateButton";
 import firebase from "../../services/firebaseConnection";
 
-import { format } from "date-fns";
+import { format, formatDistance } from "date-fns";
+import { ptBR } from 'date-fns/locale';
 
 
 type TaskList = {
@@ -26,6 +27,8 @@ interface BoardProps {
     user: {
         id: string,
         name: string,
+        vip: boolean,
+        lastDonate: string | Date,
     }
     data: string;
 }
@@ -44,19 +47,19 @@ export default function Board({ user, data }: BoardProps) {
             return;
         }
 
-        if(taskEdit) {
+        if (taskEdit) {
             await firebase.firestore().collection("tasks").doc(taskEdit.id).update({
                 task: input
             })
-            .then(()=>{
-                let data = tasksList;
-                let taskIndex = tasksList.findIndex(item=>item.id === taskEdit.id);
-                data[taskIndex].task = input;
+                .then(() => {
+                    let data = tasksList;
+                    let taskIndex = tasksList.findIndex(item => item.id === taskEdit.id);
+                    data[taskIndex].task = input;
 
-                setTasksList(data);
-                setTaskEdit(null);
-                setInput("");
-            })
+                    setTasksList(data);
+                    setTaskEdit(null);
+                    setInput("");
+                })
             return;
         }
 
@@ -108,7 +111,7 @@ export default function Board({ user, data }: BoardProps) {
 
     }
 
-    function handleCancelEdit(){
+    function handleCancelEdit() {
         setInput("");
         setTaskEdit(null);
     }
@@ -156,10 +159,12 @@ export default function Board({ user, data }: BoardProps) {
                                         <FiCalendar size={20} color="#ffb800" />
                                         <time>{task.createdFormated}</time>
                                     </div>
-                                    <button onClick={() => handleEditTask(task)}>
-                                        <FiEdit2 size={20} color="#FFF" />
-                                        <span>Edit</span>
-                                    </button>
+                                    {user.vip && (
+                                        <button onClick={() => handleEditTask(task)}>
+                                            <FiEdit2 size={20} color="#FFF" />
+                                            <span>Edit</span>
+                                        </button>
+                                    )}
                                 </div>
                                 <button onClick={() => handleDelete(task.id)}>
                                     <FiTrash size={20} color="#ff3636" />
@@ -170,16 +175,19 @@ export default function Board({ user, data }: BoardProps) {
                     ))}
                 </section>
             </main>
-            <div className={styles.vipContainer}>
-                <h3> Thank you for using our app </h3>
-                <div>
-                    <FiClock size={28} color="#fff" />
-                    <time>
-                        Last donate was to 3 days ago
-                    </time>
-                </div>
-            </div>
 
+
+            {user.vip && (
+                <div className={styles.vipContainer}>
+                    <h3> Thank you for using our app </h3>
+                    <div>
+                        <FiClock size={28} color="#fff" />
+                        <time>
+                            Last donate was to {formatDistance(new Date(user.lastDonate), new Date(), { locale: ptBR })}
+                        </time>
+                    </div>
+                </div>
+            )}
             <DonateButton />
         </>
     )
@@ -214,7 +222,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     const user = {
         name: session?.user.name,
-        id: session?.id
+        id: session?.id,
+        vip: session?.vip,
+        lastDonate: session?.lastDonate
     }
 
     return {
