@@ -18,7 +18,7 @@ export function Header() {
                         <a>Home</a>
                     </Link>
                     <Link href="/board">
-                        <a>Meu board</a>
+                        <a>My board</a>
                     </Link>
 
 

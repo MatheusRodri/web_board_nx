@@ -43,7 +43,7 @@ export default function Board({ user, data }: BoardProps) {
         e.preventDefault();
 
         if (input == "") {
-            alert("Por favor, preencha o campo de tarefa");
+            alert("Please, type the input of task");
             return;
         }
 
@@ -85,7 +85,7 @@ export default function Board({ user, data }: BoardProps) {
                 setInput("");
             })
             .catch((error) => {
-                console.log("DEU MERDA", error);
+                console.log("Error ", error);
             })
 
     }
@@ -93,7 +93,7 @@ export default function Board({ user, data }: BoardProps) {
     async function handleDelete(id: string) {
         await firebase.firestore().collection("tasks").doc(id).delete()
             .then(() => {
-                alert("Tarefa deletada com sucesso");
+                alert("Task delete with success");
                 let taskDeleted = tasksList.filter(item => {
                     return (item.id !== id)
                 })

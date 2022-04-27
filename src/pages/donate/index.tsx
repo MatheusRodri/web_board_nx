@@ -51,9 +51,9 @@ export default function Donate({ user }: DonatePorps ){
         </div>
       )}
 
-      <h1>Seja um apoiador deste projeto 🏆</h1>
-      <h3>Contribua com apenas <span>R$ 1,00</span></h3>
-      <strong>Apareça na nossa home, tenha funcionalidades exclusivas.</strong>
+      <h1>Become a supporter of this project 🏆</h1>
+      <h3>Contribute with only <span>R$ 1,00</span></h3>
+      <strong>Appear on our home, have exclusive features.</strong>
 
       <PayPalButtons
         createOrder={ (data, actions) => {

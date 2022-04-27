@@ -25,7 +25,7 @@ export default function Home({data}) {
   return (
     <>
       <Head>
-        <title>Board - Organizando suas tarefas</title>
+        <title>Board - Organizing your day</title>
       </Head>
       <main className={styles.contentContainer}>
         <Image src={boarUser} alt="board" />

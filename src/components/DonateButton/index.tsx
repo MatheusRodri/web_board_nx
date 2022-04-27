@@ -6,7 +6,7 @@ export function DonateButton(){
         <div className={styles.donateContainer}>
             <Link href="/donate">
                 <button>
-                    Apoiar
+                    Support
                 </button>
             </Link>
         </div>
